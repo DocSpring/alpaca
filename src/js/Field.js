@@ -78,11 +78,10 @@
                 this.options.label = this.schema.title;
             }
 
-            /*
-            if (!this.options.helper && this.schema.description !== null) {
+            // Add helpers for schema descriptions, ignoring the top-level one.
+            if (!schema['$schema'] && !this.options.helper && this.schema.description !== null) {
                 this.options.helper = this.schema.description;
             }
-            */
 
             // legacy support: options.helper -> convert to options.helpers
             if (!this.options.helpers) {
