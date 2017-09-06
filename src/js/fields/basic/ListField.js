@@ -92,10 +92,11 @@
                     {
                         self.options.hideNone = self.options.removeDefaultNone;
                     }
-                    else
-                    {
-                        self.options.hideNone = self.isRequired();
-                    }
+                    // Added a disabled option, so this isn't necessary.
+                    // else
+                    // {
+                    //     self.options.hideNone = self.isRequired();
+                    // }
                 }
 
                 callback(model);
@@ -262,7 +263,7 @@
 
     // Registers additional messages
     Alpaca.registerMessages({
-        "noneLabel": "None"
+        "noneLabel": "Select an Option"
     });
 
 })(jQuery);
