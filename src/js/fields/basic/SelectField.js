@@ -224,7 +224,6 @@
             var self = this;
 
             this.base(model, function() {
-
                 // if emptySelectFirst and nothing currently checked, then pick first item in the value list
                 // set data and visually select it
                 if (Alpaca.isUndefined(self.data) && self.options.emptySelectFirst && self.selectOptions && self.selectOptions.length > 0)
@@ -238,6 +237,8 @@
                 {
                     self.setValue(self.data);
                 }
+
+                self.updateUnsetClass();
 
                 // if we are in multiple mode and the bootstrap multiselect plugin is available, bind it in
                 if (self.options.multiple && $.fn.multiselect && !self.isDisplayOnly())
@@ -265,6 +266,13 @@
                 callback();
 
             });
+        },
+
+        /**
+         * Adds 'alpaca-unset' class if no option is selected, otherwise removes the class.
+         */
+        updateUnsetClass: function() {
+            $(this.getControlEl()).toggleClass('alpaca-unset', !this.data);
         },
 
         /**
@@ -335,7 +343,6 @@
          * @see Alpaca.Field#onChange
          */
         onChange: function(e) {
-
             var self = this;
 
             var scalarValue = self.getControlValue();
@@ -344,6 +351,9 @@
 
                 // store back into data element
                 self.data = data;
+
+                // Add or remove the 'unset' class for text styling
+                self.updateUnsetClass();
 
                 // store scalar value onto control
                 self.control.val(scalarValue);
