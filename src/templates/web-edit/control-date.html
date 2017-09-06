@@ -1,0 +1,11 @@
+<script type="text/x-handlebars-template">
+
+    <div class='input-group date'>
+        <input type="{{inputType}}" id="{{id}}" {{#if options.placeholder}}placeholder="{{options.placeholder}}"{{/if}} {{#if options.size}}size="{{options.size}}"{{/if}} {{#if options.readonly}}readonly="readonly"{{/if}} {{#if name}}name="{{name}}"{{/if}} {{#each options.data}}data-{{@key}}="{{this}}"{{/each}} {{#each options.attributes}}{{@key}}="{{this}}"{{/each}}/>
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar">
+            </span>
+        </span>
+    </div>
+
+</script>

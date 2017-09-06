@@ -66,6 +66,15 @@
                 self.options.picker.dayViewHeaderFormat = "MMMM YYYY";
             }
 
+            if (self.options.picker.allowInputToggle == null) {
+                self.options.picker.allowInputToggle = true;
+            }
+
+            if (!self.options.placeholder) {
+                self.options.placeholder = self.options.dateFormat;
+            }
+
+
             // extra formats
             if (!self.options.picker.extraFormats) {
                 var extraFormats = self.getDefaultExtraFormats();
@@ -79,7 +88,7 @@
                 self.options.manualEntry = false;
             }
         },
-        
+
         onKeyPress: function(e)
         {
             if (this.options.manualEntry)
@@ -93,7 +102,7 @@
                 return;
             }
         },
-        
+
         onKeyDown: function(e)
         {
             if (this.options.manualEntry)
@@ -119,7 +128,6 @@
          * @see Alpaca.Fields.TextField#afterRenderControl
          */
         afterRenderControl: function(model, callback) {
-
             var self = this;
 
             this.base(model, function() {
@@ -131,6 +139,11 @@
                         self.getControlEl().datetimepicker(self.options.picker);
 
                         self.picker = self.getControlEl().data("DateTimePicker");
+
+                        // After setting up the datepicker, change control to the input,
+                        // so we can get the value.
+                        self.control = self.control.find('> input');
+
                         if (self.picker && self.options.dateFormat)
                         {
                             self.picker.format(self.options.dateFormat);
@@ -139,7 +152,6 @@
                         {
                             self.options.dateFormat = self.picker.format();
                         }
-
                         // with date-time picker, trigger change using plugin
                         self.getFieldEl().on("dp.change", function(e) {
 
