@@ -1573,7 +1573,7 @@
 
             var status = this._validateOptional();
             valInfo["notOptional"] = {
-                "message": status ? "" : this.getMessage("notOptional"),
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("notOptional"), [this.options.label]),
                 "status": status
             };
 
@@ -2743,7 +2743,7 @@
     // Registers additional messages
     Alpaca.registerMessages({
         "disallowValue": "{0} are disallowed values.",
-        "notOptional": "This field is not optional."
+        "notOptional": "{0} is required."
     });
 
 })(jQuery);

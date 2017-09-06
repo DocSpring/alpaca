@@ -832,7 +832,7 @@
     });
 
     Alpaca.registerMessages({
-        "invalidPattern": "This field should have pattern {0}",
+        "invalidPattern": "This field is invalid.",
         "stringTooShort": "This field should contain at least {0} numbers or characters",
         "stringTooLong": "This field should contain at most {0} numbers or characters"
     });
