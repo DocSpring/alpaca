@@ -585,8 +585,19 @@
                 config.data = this.getValue();
             }
 
+            // Nest data under a top-level key
+            if (self.options.attributes.parentKey) {
+                var data = {};
+                data[self.options.attributes.parentKey] = config.data;
+                config.data = data;
+            }
+            config.data = JSON.stringify(config.data);
+
             if (!config.dataType) {
                 config.dataType = "json";
+            }
+            if (!config.contentType) {
+                config.contentType = "application/json; charset=UTF-8";
             }
             if (!config.headers) {
                 config.headers = {};
