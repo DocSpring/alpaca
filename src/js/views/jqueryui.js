@@ -34,7 +34,7 @@
 
         // required fields get a little star in their label
         var label = $(fieldEl).find("label.alpaca-control-label");
-        $('<span class="alpaca-icon-required ui-icon ui-icon-star"></span>').prependTo(label);
+        $('<span title="Required" class="alpaca-icon-required ui-icon ui-icon-star"></span>').prependTo(label);
     };
     callbacks["invalid"] = function()
     {

@@ -41,7 +41,7 @@
 
         // required fields get a little star in their label
         var label = $(fieldEl).children("label.alpaca-control-label");
-        $('<span class="alpaca-icon-required glyphicon glyphicon-asterisk"></span>').appendTo(label);
+        $('<span title="Required" class="alpaca-icon-required glyphicon glyphicon-asterisk"></span>').appendTo(label);
 
     };
     callbacks["invalid"] = function()
@@ -188,7 +188,7 @@
     callbacks["tableHeaderRequired"] = function(schema, options, domEl)
     {
         // required fields get a little star in their label
-        $('<span class="alpaca-icon-required glyphicon glyphicon-asterisk"></span>').appendTo(domEl);
+        $('<span title="Required" class="alpaca-icon-required glyphicon glyphicon-asterisk"></span>').appendTo(domEl);
 
     };
     callbacks["tableHeaderOptional"] = function(schema, options, domEl)
