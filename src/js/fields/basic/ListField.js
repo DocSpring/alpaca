@@ -92,11 +92,10 @@
                     {
                         self.options.hideNone = self.options.removeDefaultNone;
                     }
-                    // Added a disabled option, so this isn't necessary.
-                    // else
-                    // {
-                    //     self.options.hideNone = self.isRequired();
-                    // }
+                    else
+                    {
+                        self.options.hideNone = self.isRequired();
+                    }
                 }
 
                 callback(model);

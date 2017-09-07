@@ -170,6 +170,18 @@
         prepareControlModel: function(callback) {
             var self = this;
 
+            if (typeof(self.options.hideNone) === "undefined")
+            {
+                if (typeof(self.options.removeDefaultNone) !== "undefined")
+                {
+                    self.options.hideNone = self.options.removeDefaultNone;
+                }
+                else {
+                    // We don't ever need to hide the blank option for a select list.
+                    self.options.hideNone = false;
+                }
+            }
+
             this.base(function (model) {
 
                 model.selectOptions = self.selectOptions;
