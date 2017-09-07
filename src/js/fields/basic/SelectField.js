@@ -92,6 +92,7 @@
                     if (!Alpaca.isEmpty(newScalarVal) && this.control)
                     {
                         this.control.val(newScalarVal);
+                        self.control.trigger('alpaca-change');
                     }
 
                     this.base(val);
@@ -114,6 +115,7 @@
                     if (self.control && typeof(newScalarVal) !== "undefined" && newScalarVal !== null)
                     {
                         self.control.val(newScalarVal);
+                        self.control.trigger('alpaca-change');
                     }
 
                     this.base(val);
@@ -250,8 +252,6 @@
                     self.setValue(self.data);
                 }
 
-                self.updateUnsetClass();
-
                 // if we are in multiple mode and the bootstrap multiselect plugin is available, bind it in
                 if (self.options.multiple && $.fn.multiselect && !self.isDisplayOnly())
                 {
@@ -278,13 +278,6 @@
                 callback();
 
             });
-        },
-
-        /**
-         * Adds 'alpaca-unset' class if no option is selected, otherwise removes the class.
-         */
-        updateUnsetClass: function() {
-            $(this.getControlEl()).toggleClass('alpaca-unset', !this.data);
         },
 
         /**
@@ -363,9 +356,6 @@
 
                 // store back into data element
                 self.data = data;
-
-                // Add or remove the 'unset' class for text styling
-                self.updateUnsetClass();
 
                 // store scalar value onto control
                 self.control.val(scalarValue);
