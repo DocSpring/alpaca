@@ -21,6 +21,10 @@
             return Alpaca.defaultDateFormat;
         },
 
+        getDefaultSerializeFormat: function() {
+            return Alpaca.defaultSerializeDateFormat;
+        },
+
         getDefaultExtraFormats: function() {
             return [];
         },
@@ -45,6 +49,19 @@
             if (typeof(self.options.picker.useCurrent) === "undefined") {
                 self.options.picker.useCurrent = false;
             }
+            if (typeof(self.options.picker.sideBySide) === "undefined") {
+                self.options.picker.sideBySide = false;
+            }
+            if (typeof(self.options.picker.showTodayButton) === "undefined") {
+                self.options.picker.showTodayButton = true;
+            }
+            if (typeof(self.options.picker.showClear) === "undefined") {
+                self.options.picker.showClear = true;
+            }
+            if (typeof(self.options.picker.showClose) === "undefined") {
+                self.options.picker.showClose = true;
+            }
+
 
             // date format
 
@@ -203,7 +220,7 @@
                 }
                 else
                 {
-                    date = new Date(this.getValue());
+                    date = new Date(this.getUnserializedValue());
                 }
             }
             catch (e)
@@ -222,6 +239,39 @@
         date: function()
         {
             return this.getDate();
+        },
+
+        getUnserializedValue: function() {
+            var self = this;
+            var value = this.data;
+
+            if (!this.isDisplayOnly())
+            {
+                value = self.getControlValue();
+            }
+
+            value = self.ensureProperType(value);
+            return value;
+        },
+
+        /**
+         * Returns the value of this field.
+         *
+         * @returns {Any} value Field value.
+         */
+        getValue: function()
+        {
+            var self = this;
+            var value = self.getUnserializedValue();
+
+            var serializeFormat = self.getDefaultSerializeFormat();
+            if (value && serializeFormat) {
+                value = Alpaca.moment(value, self.options.dateFormat).format(serializeFormat);
+            }
+
+            // some correction for type
+            value = self.ensureProperType(value);
+            return value;
         },
 
         /**
@@ -270,7 +320,7 @@
 
             if (self.options.dateFormat)
             {
-                var value = self.getValue();
+                var value = self.getUnserializedValue();
                 if (value || self.isRequired())
                 {
                     // collect all formats

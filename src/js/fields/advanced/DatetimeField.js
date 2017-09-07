@@ -18,6 +18,10 @@
                 return Alpaca.defaultDateFormat + " " + Alpaca.defaultTimeFormat;
             },
 
+            getDefaultSerializeFormat: function() {
+                return Alpaca.defaultSerializeDateTimeFormat;
+            },
+
             getDefaultExtraFormats: function() {
                 return [
                     Alpaca.defaultDateFormat + " hh:mm:ss a",
