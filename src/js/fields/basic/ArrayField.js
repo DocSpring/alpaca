@@ -382,6 +382,11 @@
                     }
 
                     Alpaca.parallel(funcs, function() {
+                        // After adding all the new items, set values.
+                        // Probably not the most efficient way to do this,
+                        // but it works.
+                        self.setValue(data);
+
                         // nothing
                     });
                 });
