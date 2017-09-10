@@ -20,7 +20,7 @@
         setup: function()
         {
             this.base();
-            
+
             if (this.options.name)
             {
 				this.name = this.options.name;
@@ -42,6 +42,10 @@
             {
                 this.options.vertical = true;
             }
+
+            // "Select an option" is stupid on radio buttons,
+            // which are already unselected by default.
+            this.options.hideNone = true;
         },
 
         /**
@@ -61,7 +65,7 @@
 
             return val;
         },
-        
+
         /**
          * @see Alpaca.Field#setValue
          */
@@ -129,7 +133,7 @@
                 callback(model);
             });
         },
-        
+
         afterRenderControl: function(model, callback)
         {
             var self = this;
@@ -266,9 +270,9 @@
         }
 
         /* end_builder_helpers */
-        
+
     });
-    
+
     Alpaca.registerFieldClass("radio", Alpaca.Fields.RadioField);
-    
+
 })(jQuery);
