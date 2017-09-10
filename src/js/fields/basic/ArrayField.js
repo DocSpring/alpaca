@@ -313,7 +313,11 @@
         {
             var self = this;
 
-            if (!data || !Alpaca.isArray(data))
+            if (!data) {
+                data = [];
+            }
+
+            if (!Alpaca.isArray(data))
             {
                 return;
             }
