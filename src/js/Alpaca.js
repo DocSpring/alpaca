@@ -2006,6 +2006,13 @@
                 options = {};
                 options.type = fieldType;
             }
+
+            // Custom addition - Field can specify an "inputType"
+            // that takes precedence over type.
+            if (schema.inputType) {
+                options.type = schema.inputType;
+            }
+
             if (!options.type)
             {
                 // if nothing passed in, we can try to make a guess based on the type of data
