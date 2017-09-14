@@ -2013,6 +2013,19 @@
                 options.type = schema.inputType;
             }
 
+            // Check if this is an image upload attribute
+            if (schema.type === 'object' &&
+                schema.properties &&
+                schema.properties.oneOf &&
+                schema.properties.oneOf.length === 3 &&
+                schema.properties.oneOf[0].base64 &&
+                schema.properties.oneOf[1].url &&
+                schema.properties.oneOf[2].uploaded_image_id
+            ) {
+                // Just use a URL field for now, and set up the uploader later.
+                schema.properties = schema.properties.oneOf[1]
+            }
+
             if (!options.type)
             {
                 // if nothing passed in, we can try to make a guess based on the type of data
