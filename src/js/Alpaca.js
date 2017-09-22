@@ -2453,12 +2453,12 @@
                             // if we have an array in the path at this element, update newTokens to reflect
                             var toggled = false;
                             var token = tokens[index];
-                            var x1 = token.indexOf("[");
-                            if (x1 > -1)
-                            {
-                                token = token.substring(0, x1);
-                                toggled = true;
-                            }
+                            // var x1 = token.indexOf("[");
+                            // if (x1 > -1)
+                            // {
+                            //     token = token.substring(0, x1);
+                            //     toggled = true;
+                            // }
                             newTokens[index] = token;
 
                             // see if we can find a match for this path

@@ -563,10 +563,10 @@
                 if (this.parent && this.parent.name && this.path)
                 {
                     var lastSegment = this.path.substring(this.path.lastIndexOf('/') + 1);
-                    if (lastSegment.indexOf("[") !== -1 && lastSegment.indexOf("]") !== -1)
-                    {
-                        lastSegment = lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]"));
-                    }
+                    // if (lastSegment.indexOf("[") !== -1 && lastSegment.indexOf("]") !== -1)
+                    // {
+                    //     lastSegment = lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]"));
+                    // }
 
                     if (lastSegment)
                     {
@@ -2057,16 +2057,16 @@
                     var _name = pathElement;
                     var _index = -1;
 
-                    var z1 = pathElement.indexOf("[");
-                    if (z1 >= 0)
-                    {
-                        var z2 = pathElement.indexOf("]", z1 + 1);
-                        if (z2 >= 0)
-                        {
-                            _index = parseInt(pathElement.substring(z1 + 1, z2));
-                            _name = pathElement.substring(0, z1);
-                        }
-                    }
+                    // var z1 = pathElement.indexOf("[");
+                    // if (z1 >= 0)
+                    // {
+                    //     var z2 = pathElement.indexOf("]", z1 + 1);
+                    //     if (z2 >= 0)
+                    //     {
+                    //         _index = parseInt(pathElement.substring(z1 + 1, z2));
+                    //         _name = pathElement.substring(0, z1);
+                    //     }
+                    // }
 
                     if (_name)
                     {

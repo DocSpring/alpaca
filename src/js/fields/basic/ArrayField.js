@@ -533,7 +533,7 @@
                         // render
                         fieldControl.parent = self;
                         // setup item path
-                        fieldControl.path = self.path + "[" + index + "]";
+                        fieldControl.path = self.path + "/" + index;
                         //fieldControl.nameCalculated = true;
                         fieldControl.render(null, function() {
                             if (cb) {
@@ -935,15 +935,15 @@
                     var idx = v.path.lastIndexOf('/');
                     var lastSegment = v.path.substring(idx+1);
                     var lastIndex = -1;
-                    if (lastSegment.indexOf("[") > 0 && lastSegment.indexOf("]") > 0)
-                    {
-                        lastIndex = parseInt(lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]")));
-                    }
+                    // if (lastSegment.indexOf("[") > 0 && lastSegment.indexOf("]") > 0)
+                    // {
+                    //     lastIndex = parseInt(lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]")));
+                    // }
 
                     if (lastIndex !== i)
                     {
                         v.prePath = v.path;
-                        v.path = v.path.substring(0, idx) + "/" + lastSegment.substring(0, lastSegment.indexOf("[")) + "[" + i + "]";
+                        v.path = v.path.substring(0, idx) + "/" + lastSegment.substring(0, lastSegment.indexOf("[")) + "/" + i;
                     }
 
                     // re-calculate name

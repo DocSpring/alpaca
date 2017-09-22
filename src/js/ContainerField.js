@@ -578,7 +578,7 @@
                 {
                     if (child.schema.type === "array")
                     {
-                        child.path = self.path + "[" + i + "]";
+                        child.path = self.path + "/" + i;
                     }
                     else
                     {
