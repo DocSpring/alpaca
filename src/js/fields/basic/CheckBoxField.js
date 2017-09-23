@@ -90,6 +90,9 @@
                 if (!this.options.rightLabel) {
                     this.options.rightLabel = "";
                 }
+
+                // Quick hack - We use CSS to hide the main label, and put it on the right.
+                this.options.rightLabel = (self.schema && self.schema.title) || self.name;
             }
         },
 
