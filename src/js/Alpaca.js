@@ -2009,8 +2009,8 @@
 
             // Custom addition - Field can specify an "inputType"
             // that takes precedence over type.
-            if (schema.inputType) {
-                options.type = schema.inputType;
+            if (schema['x-input-type']) {
+                options.type = schema['x-input-type'];
             }
 
             // Check if this is an image upload attribute
