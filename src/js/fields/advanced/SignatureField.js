@@ -84,6 +84,20 @@
         },
 
         /**
+         * @see Alpaca.Fields.TextField#setValue
+         */
+        setValue: function(value)
+        {
+            var self = this;
+
+            if (value && value.base64 instanceof Array) {
+              // This is a fake signature sent from our 'random data' feature. It's not actually base64.
+              self.signaturePad.fromData(value.base64);
+              self.onChange();
+            }
+        },
+
+        /**
          * @see Alpaca.Field#onChange
          */
         onChange: function()
