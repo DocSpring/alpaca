@@ -40,6 +40,7 @@ var paths = {
     scripts: {
         core: [
             "thirdparty/base/Base.js",
+            "thirdparty/signature_pad.js",
 
             "src/js/Alpaca.js",
             "src/js/ObservableUtils.js",
@@ -102,6 +103,7 @@ var paths = {
             "src/js/fields/advanced/PhoneField.js",
             "src/js/fields/advanced/PickAColorField.js",
             "src/js/fields/advanced/SearchField.js",
+            "src/js/fields/advanced/SignatureField.js",
             "src/js/fields/advanced/StateField.js",
             "src/js/fields/advanced/SummernoteField.js",
             "src/js/fields/advanced/TableField.js",
