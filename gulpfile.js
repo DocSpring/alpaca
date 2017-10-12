@@ -312,7 +312,7 @@ gulp.task("build-templates", function(cb)
     ).pipe(es.wait(function() {
         //console.log("build-templates complete");
         //cb();
-    })).pipe(notify({message: "Built Alpaca Templates"}));
+    }));
 });
 
 gulp.task("build-scripts", function(cb) {
@@ -504,7 +504,7 @@ gulp.task("build-styles", function(cb) {
             //console.log("build-styles completed");
             //cb();
 
-        })).pipe(notify({message: "Built Alpaca CSS"}));
+        }));
 });
 
 gulp.task("build-site", function(cb)
