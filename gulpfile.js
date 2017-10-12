@@ -403,13 +403,13 @@ gulp.task("build-scripts", function(cb) {
         es.concat(
 
             // web
-            gulp.src(paths.scripts.web)
-                .pipe(concat('alpaca.js'))
-                .pipe(wrapUmd(web_wrap))
-                .pipe(gulp.dest('build/alpaca/web'))
-                .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/web')),
+            // gulp.src(paths.scripts.web)
+            //     .pipe(concat('alpaca.js'))
+            //     .pipe(wrapUmd(web_wrap))
+            //     .pipe(gulp.dest('build/alpaca/web'))
+            //     .pipe(concat('alpaca.min.js'))
+            //     .pipe(uglify())
+            //     .pipe(gulp.dest('build/alpaca/web')),
             /*
             gulp.src(paths.scripts.web)
                 .pipe(concat('alpaca-nobuilder.js'))
@@ -424,26 +424,26 @@ gulp.task("build-scripts", function(cb) {
                 .pipe(wrapUmd(bootstrap_wrap))
                 .pipe(gulp.dest('build/alpaca/bootstrap'))
                 .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
+                // .pipe(uglify())
                 .pipe(gulp.dest('build/alpaca/bootstrap')),
 
-            // jqueryui
-            gulp.src(paths.scripts.jqueryui)
-                .pipe(concat('alpaca.js'))
-                .pipe(wrapUmd(jqueryui_warp))
-                .pipe(gulp.dest('build/alpaca/jqueryui'))
-                .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/jqueryui')),
+            // // jqueryui
+            // gulp.src(paths.scripts.jqueryui)
+            //     .pipe(concat('alpaca.js'))
+            //     .pipe(wrapUmd(jqueryui_warp))
+            //     .pipe(gulp.dest('build/alpaca/jqueryui'))
+            //     .pipe(concat('alpaca.min.js'))
+            //     .pipe(uglify())
+            //     .pipe(gulp.dest('build/alpaca/jqueryui')),
 
-            // jquerymobile
-            gulp.src(paths.scripts.jquerymobile)
-                .pipe(concat('alpaca.js'))
-                .pipe(wrapUmd(jquerymobile_wrap))
-                .pipe(gulp.dest('build/alpaca/jquerymobile'))
-                .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/jquerymobile'))
+            // // jquerymobile
+            // gulp.src(paths.scripts.jquerymobile)
+            //     .pipe(concat('alpaca.js'))
+            //     .pipe(wrapUmd(jquerymobile_wrap))
+            //     .pipe(gulp.dest('build/alpaca/jquerymobile'))
+            //     .pipe(concat('alpaca.min.js'))
+            //     .pipe(uglify())
+            //     .pipe(gulp.dest('build/alpaca/jquerymobile'))
 
         ).pipe(es.wait(function() {
 
