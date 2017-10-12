@@ -585,12 +585,6 @@
                 config.data = this.getValue();
             }
 
-            // Nest data under a top-level key
-            if (self.options.attributes.parentKey) {
-                var data = {};
-                data[self.options.attributes.parentKey] = config.data;
-                config.data = data;
-            }
             config.data = JSON.stringify(config.data);
 
             if (!config.dataType) {
