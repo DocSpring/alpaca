@@ -43,7 +43,16 @@
                   // debugger
                   self.canvas = $(el).find('canvas')[0];
                   self.signaturePad = new SignaturePad(self.canvas, {
+                    onBegin: function() {
+                        if (Alpaca.onSignaturePadBegin) {
+                            Alpaca.onSignaturePadBegin();
+                        }
+                    },
                     onEnd: function() {
+                        if (Alpaca.onSignaturePadEnd) {
+                            Alpaca.onSignaturePadEnd();
+                        }
+
                       // This string just passes the validation check for required signatures.
                       // self.setValue(
                       //   self.signaturePad.isEmpty() ? null : { base64: 'HAS_SIGNATURE' });
