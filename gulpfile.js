@@ -427,7 +427,7 @@ gulp.task("build-scripts", function(cb) {
                 .pipe(gulp.dest('build/alpaca/bootstrap'))
                 .pipe(concat('alpaca.min.js'))
                 // .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/bootstrap')),
+                .pipe(gulp.dest('build/alpaca/bootstrap'))
 
             // // jqueryui
             // gulp.src(paths.scripts.jqueryui)
