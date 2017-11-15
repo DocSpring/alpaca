@@ -355,9 +355,15 @@
 
             if (this.picker)
             {
-                if (Alpaca.moment(value, self.options.dateFormat, true).isValid())
+                var parsedDate = Alpaca.moment(value, self.options.dateFormat, true);
+                if (!parsedDate.isValid()) {
+                    // Try parsing date with no fixed format (e.g. YYYY-MM-DD)
+                    parsedDate = Alpaca.moment(value);
+                }
+
+                if (parsedDate.isValid())
                 {
-                    this.picker.date(value);
+                    this.picker.date(parsedDate.format(self.options.dateFormat));
                 }
             }
         },
