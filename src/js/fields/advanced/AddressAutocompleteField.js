@@ -27,7 +27,6 @@
                 this.autocomplete = new google.maps.places.Autocomplete(self.control[0], options);
 
                 this.autocomplete.addListener('place_changed', function () {
-                  console.log('address changed');
                   // Trigger localStorage hook
                   self.control.trigger('alpaca-change');
                 });
