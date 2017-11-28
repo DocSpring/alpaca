@@ -80,6 +80,7 @@ var paths = {
             "src/js/fields/basic/HiddenField.js",
 
             "src/js/fields/advanced/AddressField.js",
+            "src/js/fields/advanced/AddressAutocompleteField.js",
             "src/js/fields/advanced/CKEditorField.js",
             "src/js/fields/advanced/ColorField.js",
             "src/js/fields/advanced/ColorPickerField.js",
