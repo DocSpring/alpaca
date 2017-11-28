@@ -132,6 +132,13 @@
                 this.data = [];
             }
 
+            // Always add the minimum number of items
+            if (this.schema.minItems && this.schema.minItems > 0) {
+                for (var i = 0; i < this.schema.minItems; i++) {
+                    this.data.push({});
+                }
+            }
+
             if (Alpaca.isString(this.data))
             {
                 // assume to be a serialized array or object, convert
