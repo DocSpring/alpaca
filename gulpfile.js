@@ -41,6 +41,7 @@ var paths = {
         core: [
             "thirdparty/base/Base.js",
             "thirdparty/signature_pad.js",
+            "thirdparty/pluralize.js",
 
             "src/js/Alpaca.js",
             "src/js/ObservableUtils.js",

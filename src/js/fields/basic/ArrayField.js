@@ -232,8 +232,13 @@
             if (!self.toolbar.actions) {
                 self.toolbar.actions = [];
             }
+            // Singularize the title for the button text
+            var label = self.options.label ?
+                "Add a " + pluralize.singular(self.options.label) :
+                self.getMessage("addItemButtonLabel");
+
             applyAction(self.toolbar.actions, "add", {
-                "label": self.getMessage("addItemButtonLabel"),
+                "label": label,
                 "action": "add",
                 "iconClass": self.view.getStyle("addIcon"),
                 "click": function(key, action) {
