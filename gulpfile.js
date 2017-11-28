@@ -42,6 +42,7 @@ var paths = {
             "thirdparty/base/Base.js",
             "thirdparty/signature_pad.js",
             "thirdparty/pluralize.js",
+            "thirdparty/jquery.priceformat.js",
 
             "src/js/Alpaca.js",
             "src/js/ObservableUtils.js",
