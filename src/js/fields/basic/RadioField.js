@@ -19,6 +19,9 @@
          */
         setup: function()
         {
+            // Don't sort any of the provided values.
+            this.options.sort = false;
+
             this.base();
 
             if (this.options.name)
