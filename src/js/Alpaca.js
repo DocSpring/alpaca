@@ -2024,7 +2024,8 @@
                 //schema.properties.oneOf[2].uploaded_image_id
             ) {
                 // Just use a URL field for now. Set up the uploader later.
-                schema.properties = schema.oneOf[1].properties
+                schema.properties = schema.oneOf[1].properties;
+                delete schema.oneOf;
             }
 
             if (!options.type)
