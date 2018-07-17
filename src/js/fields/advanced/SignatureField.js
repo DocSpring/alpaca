@@ -66,7 +66,6 @@
                   $(el).on('click', 'a.alpaca-signature-clear', function(e) {
                       if (self.signaturePad) {
                           e.preventDefault();
-                          self.signaturePad.clear();
                           self.setValue(null);
                       }
                   });
@@ -99,10 +98,12 @@
         {
             var self = this;
 
-            if (value && value.base64 instanceof Array) {
-              // This is a fake signature sent from our 'random data' feature. It's not actually base64.
-              self.signaturePad.fromData(value.base64);
-              self.onChange();
+            if (!value) {
+                self.signaturePad.clear();
+            } else if (value.base64 instanceof Array) {
+                // This is a fake signature sent from our 'random data' feature. It's not actually base64.
+                self.signaturePad.fromData(value.base64);
+                self.onChange();
             }
         },
 
