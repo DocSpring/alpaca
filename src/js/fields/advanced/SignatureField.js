@@ -96,6 +96,7 @@
          */
         setValue: function(value)
         {
+            if (!this.signaturePad) return;
             var self = this;
 
             if (!value) {
