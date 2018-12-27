@@ -71,7 +71,8 @@
             tag = "div";
         }
 
-        return "<" + tag + " class='" + Alpaca.MARKER_CLASS_CONTAINER_FIELD_ITEM + "' " + Alpaca.MARKER_DATA_CONTAINER_FIELD_ITEM_KEY + "='" + this.name + "'></" + tag + ">";
+        return "<" + tag + " class='" + Alpaca.MARKER_CLASS_CONTAINER_FIELD_ITEM + "' " + Alpaca.MARKER_DATA_CONTAINER_FIELD_ITEM_KEY + "='" +
+        (this.name || '').replace(/'/g, "_") + "'></" + tag + ">";
     };
     helpers["itemField"] = function(tag, options)
     {

@@ -420,7 +420,8 @@
                 var item = model.items[i];
 
                 // find the insertion point
-                var insertionPoint = $(self.container).find("." + Alpaca.MARKER_CLASS_CONTAINER_FIELD_ITEM + "[" + Alpaca.MARKER_DATA_CONTAINER_FIELD_ITEM_KEY + "='" + item.name + "']");
+                var insertionPoint = $(self.container).find("." + Alpaca.MARKER_CLASS_CONTAINER_FIELD_ITEM + "[" + Alpaca.MARKER_DATA_CONTAINER_FIELD_ITEM_KEY + "='" +
+                (item.name || '').replace(/'/g, "_") + "']");
                 if (!layoutBindings)
                 {
                     var holder = $(insertionPoint).parent();
