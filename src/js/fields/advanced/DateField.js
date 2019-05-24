@@ -153,9 +153,10 @@
                 {
                     if ($.fn.datetimepicker)
                     {
-                        self.getControlEl().datetimepicker(self.options.picker);
+                        var inputEl = self.getControlEl().find('input');
+                        inputEl.datetimepicker(self.options.picker);
 
-                        self.picker = self.getControlEl().data("DateTimePicker");
+                        self.picker = inputEl.data("datetimepicker");
 
                         // After setting up the datepicker, change control to the input,
                         // so we can get the value.
