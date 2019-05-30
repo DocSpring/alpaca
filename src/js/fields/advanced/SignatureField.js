@@ -40,7 +40,6 @@
               self.on("ready", function() {
                 // Still have to do this.
                 requestAnimationFrame(function() {
-                  // debugger
                   self.canvas = $(el).find('canvas')[0];
                   self.signaturePad = new SignaturePad(self.canvas, {
                     onBegin: function() {
