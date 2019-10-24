@@ -40,10 +40,10 @@
             }
 
             if (!this.options.actionbarStyle) {
-                this.options.actionbarStyle = Alpaca.isEmpty(this.view.actionbarStyle) ? "top" : this.view.actionbarStyle;
+                this.options.actionbarStyle = Alpaca.isEmpty(this.view.actionbarStyle) ? "bottom" : this.view.actionbarStyle;
             }
             if (!this.options.actionbarStyle) {
-                this.options.actionbarStyle = "top";
+                this.options.actionbarStyle = "bottom";
             }
 
             if (!this.options.toolbarPosition) {
