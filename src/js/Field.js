@@ -988,7 +988,7 @@
             }
 
             // hidden
-            if (this.options.hidden)
+            if (this.options.hidden || this.schema['x-hidden'])
             {
                 this.field.hide();
             }
@@ -1738,7 +1738,7 @@
          */
         show: function()
         {
-            if (this.options && this.options.hidden)
+            if ((this.options && this.options.hidden) || this.schema['x-hidden'])
             {
                 // if the hidden option is on, we're always hidden
                 return;
