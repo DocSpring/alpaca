@@ -78,11 +78,10 @@
                 this.options.label = this.schema.title;
             }
 
-            /*
-            if (!this.options.helper && this.schema.description !== null) {
+            // Add helpers for schema descriptions, ignoring the top-level one.
+            if (!schema['$schema'] && !this.options.helper && this.schema.description !== null) {
                 this.options.helper = this.schema.description;
             }
-            */
 
             // legacy support: options.helper -> convert to options.helpers
             if (!this.options.helpers) {
@@ -599,11 +598,11 @@
                     else
                     {
                         var lastSegment = this.path.substring(this.path.lastIndexOf('/') + 1);
-                        if (lastSegment.indexOf("[") !== -1 && lastSegment.indexOf("]") !== -1)
-                        {
-                            lastSegment = lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]"));
-                        }
-    
+                        // if (lastSegment.indexOf("[") !== -1 && lastSegment.indexOf("]") !== -1)
+                        // {
+                        //     lastSegment = lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]"));
+                        // }
+
                         if (lastSegment)
                         {
                             this.name = this.parent.name + "_" + lastSegment;
@@ -1026,7 +1025,7 @@
             }
 
             // hidden
-            if (this.options.hidden)
+            if (this.options.hidden || this.schema['x-hidden'])
             {
                 this.field.hide();
                 this._isHidden = true;
@@ -1606,7 +1605,7 @@
 
             var status = this._validateOptional();
             valInfo["notOptional"] = {
-                "message": status ? "" : this.getMessage("notOptional"),
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("notOptional"), [this.options.label]),
                 "status": status
             };
 
@@ -1771,7 +1770,7 @@
          */
         show: function()
         {
-            if (this.options && this.options.hidden)
+            if ((this.options && this.options.hidden) || this.schema['x-hidden'])
             {
                 this._isHidden = true;
 
@@ -1901,7 +1900,7 @@
             {
                 newValue = this.data;
             }
-            
+
             this.setValue(newValue);
         },
 
@@ -2103,16 +2102,16 @@
                     var _name = pathElement;
                     var _index = -1;
 
-                    var z1 = pathElement.indexOf("[");
-                    if (z1 >= 0)
-                    {
-                        var z2 = pathElement.indexOf("]", z1 + 1);
-                        if (z2 >= 0)
-                        {
-                            _index = parseInt(pathElement.substring(z1 + 1, z2));
-                            _name = pathElement.substring(0, z1);
-                        }
-                    }
+                    // var z1 = pathElement.indexOf("[");
+                    // if (z1 >= 0)
+                    // {
+                    //     var z2 = pathElement.indexOf("]", z1 + 1);
+                    //     if (z2 >= 0)
+                    //     {
+                    //         _index = parseInt(pathElement.substring(z1 + 1, z2));
+                    //         _name = pathElement.substring(0, z1);
+                    //     }
+                    // }
 
                     if (_name)
                     {
@@ -2800,7 +2799,7 @@
     // Registers additional messages
     Alpaca.registerMessages({
         "disallowValue": "{0} are disallowed values.",
-        "notOptional": "This field is not optional."
+        "notOptional": "{0} is required."
     });
 
 })(jQuery);

@@ -749,7 +749,7 @@
                 var self = this;
 
                 // if sort is false, just return
-                if (self.options.sort === false)
+                if (self.options.sort === false || Alpaca.disableDefaultSort)
                 {
                     return;
                 }

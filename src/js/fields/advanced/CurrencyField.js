@@ -43,6 +43,10 @@
                 }
             }
 
+            // Default should be true.
+            options.allowOptionalEmpty = true;
+            options.clearOnEmpty = true;
+
             if (typeof(data) !== "undefined")
             {
                 data = "" + parseFloat(data).toFixed(options.centsLimit);
@@ -276,5 +280,6 @@
     });
 
     Alpaca.registerFieldClass("currency", Alpaca.Fields.CurrencyField);
+    Alpaca.registerDefaultFormatFieldMapping("currency", "currency");
 
 })(jQuery);

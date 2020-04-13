@@ -2006,6 +2006,30 @@
                 options = {};
                 options.type = fieldType;
             }
+
+            // Custom addition - Field can specify an "inputType"
+            // that takes precedence over type.
+            if (schema['x-input-type']) {
+                options.type = schema['x-input-type'];
+            }
+
+            // Check if this is an image upload attribute
+            if (schema.oneOf &&
+                schema.oneOf.length === 2 &&
+                schema.oneOf[0].type === 'object' &&
+                schema.oneOf[0].properties &&
+                schema.oneOf[0].properties.base64 &&
+                schema.oneOf[1].type === 'object' &&
+                schema.oneOf[1].properties &&
+                schema.oneOf[1].properties.url
+                //schema.properties.oneOf[2].uploaded_image_id
+            ) {
+                // Just use a URL field for now. Set up the uploader later.
+                schema.properties = schema.oneOf[1].properties;
+                schema.type = 'object';
+                delete schema.oneOf;
+            }
+
             if (!options.type)
             {
                 // if nothing passed in, we can try to make a guess based on the type of data
@@ -2433,12 +2457,12 @@
                             // if we have an array in the path at this element, update newTokens to reflect
                             var toggled = false;
                             var token = tokens[index];
-                            var x1 = token.indexOf("[");
-                            if (x1 > -1)
-                            {
-                                token = token.substring(0, x1);
-                                toggled = true;
-                            }
+                            // var x1 = token.indexOf("[");
+                            // if (x1 > -1)
+                            // {
+                            //     token = token.substring(0, x1);
+                            //     toggled = true;
+                            // }
                             newTokens[index] = token;
 
                             // see if we can find a match for this path
@@ -4095,7 +4119,7 @@
             throw new Error("The moment.js library has not been included, cannot produce moment object");
         }
 
-        return Alpaca._moment.call(this, arguments);
+        return Alpaca._moment.apply(this, arguments);
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

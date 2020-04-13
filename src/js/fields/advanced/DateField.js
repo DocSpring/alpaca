@@ -21,6 +21,10 @@
             return Alpaca.defaultDateFormat;
         },
 
+        getDefaultSerializeFormat: function() {
+            return Alpaca.defaultSerializeDateFormat;
+        },
+
         getDefaultExtraFormats: function() {
             return [];
         },
@@ -45,6 +49,19 @@
             if (typeof(self.options.picker.useCurrent) === "undefined") {
                 self.options.picker.useCurrent = false;
             }
+            if (typeof(self.options.picker.sideBySide) === "undefined") {
+                self.options.picker.sideBySide = false;
+            }
+            if (typeof(self.options.picker.showTodayButton) === "undefined") {
+                self.options.picker.showTodayButton = true;
+            }
+            if (typeof(self.options.picker.showClear) === "undefined") {
+                self.options.picker.showClear = true;
+            }
+            if (typeof(self.options.picker.showClose) === "undefined") {
+                self.options.picker.showClose = true;
+            }
+
 
             // date format
 
@@ -66,6 +83,15 @@
                 self.options.picker.dayViewHeaderFormat = "MMMM YYYY";
             }
 
+            if (self.options.picker.allowInputToggle == null) {
+                self.options.picker.allowInputToggle = true;
+            }
+
+            if (!self.options.placeholder) {
+                self.options.placeholder = self.options.dateFormat;
+            }
+
+
             // extra formats
             if (!self.options.picker.extraFormats) {
                 var extraFormats = self.getDefaultExtraFormats();
@@ -79,7 +105,7 @@
                 self.options.manualEntry = false;
             }
         },
-        
+
         onKeyPress: function(e)
         {
             if (this.options.manualEntry)
@@ -93,7 +119,7 @@
                 return;
             }
         },
-        
+
         onKeyDown: function(e)
         {
             if (this.options.manualEntry)
@@ -119,7 +145,6 @@
          * @see Alpaca.Fields.TextField#afterRenderControl
          */
         afterRenderControl: function(model, callback) {
-
             var self = this;
 
             this.base(model, function() {
@@ -131,6 +156,11 @@
                         self.getControlEl().datetimepicker(self.options.picker);
 
                         self.picker = self.getControlEl().data("DateTimePicker");
+
+                        // After setting up the datepicker, change control to the input,
+                        // so we can get the value.
+                        self.control = self.control.find('> input');
+
                         if (self.picker && self.options.dateFormat)
                         {
                             self.picker.format(self.options.dateFormat);
@@ -139,7 +169,6 @@
                         {
                             self.options.dateFormat = self.picker.format();
                         }
-
                         // with date-time picker, trigger change using plugin
                         self.getFieldEl().on("dp.change", function(e) {
 
@@ -191,7 +220,7 @@
                 }
                 else
                 {
-                    date = new Date(this.getValue());
+                    date = new Date(this.getUnserializedValue());
                 }
             }
             catch (e)
@@ -210,6 +239,39 @@
         date: function()
         {
             return this.getDate();
+        },
+
+        getUnserializedValue: function() {
+            var self = this;
+            var value = this.data;
+
+            if (!this.isDisplayOnly())
+            {
+                value = self.getControlValue();
+            }
+
+            value = self.ensureProperType(value);
+            return value;
+        },
+
+        /**
+         * Returns the value of this field.
+         *
+         * @returns {Any} value Field value.
+         */
+        getValue: function()
+        {
+            var self = this;
+            var value = self.getUnserializedValue();
+
+            var serializeFormat = self.getDefaultSerializeFormat();
+            if (value && serializeFormat) {
+                value = Alpaca.moment(value, self.options.dateFormat).format(serializeFormat);
+            }
+
+            // some correction for type
+            value = self.ensureProperType(value);
+            return value;
         },
 
         /**
@@ -258,7 +320,7 @@
 
             if (self.options.dateFormat)
             {
-                var value = self.getValue();
+                var value = self.getUnserializedValue();
                 if (value || self.isRequired())
                 {
                     // collect all formats
@@ -293,9 +355,15 @@
 
             if (this.picker)
             {
-                if (Alpaca.moment(value, self.options.dateFormat, true).isValid())
+                var parsedDate = Alpaca.moment(value, self.options.dateFormat, true);
+                if (!parsedDate.isValid()) {
+                    // Try parsing date with no fixed format (e.g. YYYY-MM-DD)
+                    parsedDate = Alpaca.moment(value);
+                }
+
+                if (parsedDate.isValid())
                 {
-                    this.picker.date(value);
+                    this.picker.date(parsedDate.format(self.options.dateFormat));
                 }
             }
         },

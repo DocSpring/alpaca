@@ -44,10 +44,10 @@
             }
 
             if (!this.options.actionbarStyle) {
-                this.options.actionbarStyle = Alpaca.isEmpty(this.view.actionbarStyle) ? "top" : this.view.actionbarStyle;
+                this.options.actionbarStyle = Alpaca.isEmpty(this.view.actionbarStyle) ? "bottom" : this.view.actionbarStyle;
             }
             if (!this.options.actionbarStyle) {
-                this.options.actionbarStyle = "top";
+                this.options.actionbarStyle = "bottom";
             }
 
             if (!this.options.toolbarPosition) {
@@ -124,6 +124,13 @@
             if (Alpaca.isEmpty(this.data) || this.data === "")
             {
                 this.data = [];
+            }
+
+            // Always add the minimum number of items
+            if (this.schema.minItems && this.schema.minItems > 0) {
+                for (var i = 0; i < this.schema.minItems; i++) {
+                    this.data.push({});
+                }
             }
 
             if (Alpaca.isString(this.data))
@@ -218,8 +225,13 @@
             if (!self.toolbar.actions) {
                 self.toolbar.actions = [];
             }
+            // Singularize the title for the button text
+            var label = self.options.label ?
+                "Add a " + pluralize.singular(self.options.label) :
+                self.getMessage("addItemButtonLabel");
+
             applyAction(self.toolbar.actions, "add", {
-                "label": self.getMessage("addItemButtonLabel"),
+                "label": label,
                 "action": "add",
                 "iconClass": self.view.getStyle("addIcon"),
                 "click": function(key, action) {
@@ -309,7 +321,7 @@
             if (!data) {
                 data = [];
             }
-
+            
             if (!Alpaca.isArray(data))
             {
                 return;
@@ -375,6 +387,11 @@
                     }
 
                     Alpaca.parallel(funcs, function() {
+                        // After adding all the new items, set values.
+                        // Probably not the most efficient way to do this,
+                        // but it works.
+                        self.setValue(data);
+
                         // nothing
                     });
                 });
@@ -521,7 +538,7 @@
                         // render
                         fieldControl.parent = self;
                         // setup item path
-                        fieldControl.path = self.path + "[" + index + "]";
+                        fieldControl.path = self.path + "/" + index;
                         //fieldControl.nameCalculated = true;
                         fieldControl.render(null, function() {
                             if (cb) {
@@ -931,15 +948,15 @@
                     var idx = v.path.lastIndexOf('/');
                     var lastSegment = v.path.substring(idx+1);
                     var lastIndex = -1;
-                    if (lastSegment.indexOf("[") > 0 && lastSegment.indexOf("]") > 0)
-                    {
-                        lastIndex = parseInt(lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]")));
-                    }
+                    // if (lastSegment.indexOf("[") > 0 && lastSegment.indexOf("]") > 0)
+                    // {
+                    //     lastIndex = parseInt(lastSegment.substring(lastSegment.indexOf("[") + 1, lastSegment.indexOf("]")));
+                    // }
 
                     if (lastIndex !== i)
                     {
                         v.prePath = v.path;
-                        v.path = v.path.substring(0, idx) + "/" + lastSegment.substring(0, lastSegment.indexOf("[")) + "[" + i + "]";
+                        v.path = v.path.substring(0, idx) + "/" + lastSegment.substring(0, lastSegment.indexOf("[")) + "/" + i;
                     }
 
                     // re-calculate name

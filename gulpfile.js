@@ -40,6 +40,9 @@ var paths = {
     scripts: {
         core: [
             "thirdparty/base/Base.js",
+            "thirdparty/signature_pad.js",
+            "thirdparty/pluralize.js",
+            "thirdparty/jquery.priceformat.js",
 
             "src/js/Alpaca.js",
             "src/js/Alpaca-async.js",
@@ -82,6 +85,7 @@ var paths = {
             "src/js/fields/list/ChooserField.js",
 
             "src/js/fields/advanced/AddressField.js",
+            "src/js/fields/advanced/AddressAutocompleteField.js",
             "src/js/fields/advanced/CKEditorField.js",
             "src/js/fields/advanced/ColorField.js",
             "src/js/fields/advanced/ColorPickerField.js",
@@ -107,6 +111,7 @@ var paths = {
             "src/js/fields/advanced/PhoneField.js",
             "src/js/fields/advanced/PickAColorField.js",
             "src/js/fields/advanced/SearchField.js",
+            "src/js/fields/advanced/SignatureField.js",
             "src/js/fields/advanced/StateField.js",
             "src/js/fields/advanced/SummernoteField.js",
             "src/js/fields/advanced/TableField.js",
@@ -317,7 +322,7 @@ gulp.task("build-templates", function(cb)
     ).pipe(es.wait(function() {
         //console.log("build-templates complete");
         //cb();
-    })).pipe(notify({message: "Built Alpaca Templates"}));
+    }));
 });
 
 gulp.task("build-scripts", function(cb) {
@@ -408,13 +413,21 @@ gulp.task("build-scripts", function(cb) {
         es.concat(
 
             // web
+
+            // gulp.src(paths.scripts.web)
+            //     .pipe(concat('alpaca.js'))
+            //     .pipe(wrapUmd(web_wrap))
+            //     .pipe(gulp.dest('build/alpaca/web'))
+            //     .pipe(concat('alpaca.min.js'))
+            //     .pipe(uglify())
+            //     .pipe(gulp.dest('build/alpaca/web')),
+            /*
             gulp.src(paths.scripts.web)
-                .pipe(concat('alpaca.js'))
-                .pipe(wrapUmd(web_wrap))
-                .pipe(gulp.dest('build/alpaca/web'))
-                .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
+                .pipe(concat('alpaca-nobuilder.js'))
+                .pipe(wrap(web_wrap))
+                .pipe(stripper())
                 .pipe(gulp.dest('build/alpaca/web')),
+            */
 
             // bootstrap
             gulp.src(paths.scripts.bootstrap)
@@ -422,26 +435,26 @@ gulp.task("build-scripts", function(cb) {
                 .pipe(wrapUmd(bootstrap_wrap))
                 .pipe(gulp.dest('build/alpaca/bootstrap'))
                 .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/bootstrap')),
+                // .pipe(uglify())
+                .pipe(gulp.dest('build/alpaca/bootstrap'))
 
-            // jqueryui
-            gulp.src(paths.scripts.jqueryui)
-                .pipe(concat('alpaca.js'))
-                .pipe(wrapUmd(jqueryui_warp))
-                .pipe(gulp.dest('build/alpaca/jqueryui'))
-                .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/jqueryui')),
+            // // jqueryui
+            // gulp.src(paths.scripts.jqueryui)
+            //     .pipe(concat('alpaca.js'))
+            //     .pipe(wrapUmd(jqueryui_warp))
+            //     .pipe(gulp.dest('build/alpaca/jqueryui'))
+            //     .pipe(concat('alpaca.min.js'))
+            //     .pipe(uglify())
+            //     .pipe(gulp.dest('build/alpaca/jqueryui')),
 
-            // jquerymobile
-            gulp.src(paths.scripts.jquerymobile)
-                .pipe(concat('alpaca.js'))
-                .pipe(wrapUmd(jquerymobile_wrap))
-                .pipe(gulp.dest('build/alpaca/jquerymobile'))
-                .pipe(concat('alpaca.min.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('build/alpaca/jquerymobile'))
+            // // jquerymobile
+            // gulp.src(paths.scripts.jquerymobile)
+            //     .pipe(concat('alpaca.js'))
+            //     .pipe(wrapUmd(jquerymobile_wrap))
+            //     .pipe(gulp.dest('build/alpaca/jquerymobile'))
+            //     .pipe(concat('alpaca.min.js'))
+            //     .pipe(uglify())
+            //     .pipe(gulp.dest('build/alpaca/jquerymobile'))
 
         ).pipe(es.wait(function() {
 
@@ -502,7 +515,7 @@ gulp.task("build-styles", function(cb) {
             //console.log("build-styles completed");
             //cb();
 
-        })).pipe(notify({message: "Built Alpaca CSS"}));
+        }));
 });
 
 gulp.task("build-site", function(cb)

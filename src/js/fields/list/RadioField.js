@@ -23,8 +23,11 @@
 
             self.options.multiple = false;
 
+            // Don't sort any of the provided values.
+            self.options.sort = false;
+
             this.base();
-            
+
             if (this.options.name)
             {
 				this.name = this.options.name;
@@ -46,6 +49,58 @@
             {
                 this.options.vertical = true;
             }
+
+            // "Select an option" is stupid on radio buttons,
+            // which are already unselected by default.
+            this.options.hideNone = true;
+        },
+
+        /**
+         * @see Alpaca.Fields.ControlField#getControlValue
+         */
+        getControlValue: function()
+        {
+            var self = this;
+
+            var val = null;
+
+            $(this.control).find(":checked").each(function() {
+                val = $(this).val();
+
+                val = self.ensureProperType(val);
+            });
+
+            return val;
+        },
+
+        /**
+         * @see Alpaca.Field#setValue
+         */
+        setValue: function(val)
+        {
+            var self = this;
+
+            // clear all
+            $(this.control).find("input").each(function() {
+                Alpaca.checked($(this), null);
+            });
+
+            // mark selected value
+            if (typeof(val) != "undefined")
+            {
+                Alpaca.checked($(self.control).find("input[value=\"" + val + "\"]"), "checked");
+            }
+
+            // if none selected and "emptySelectFirst", then select
+            if (this.options.emptySelectFirst)
+            {
+                if ($(this.control).find("input:checked").length === 0)
+                {
+                    Alpaca.checked($(self.control).find("input:radio").first(), "checked");
+                }
+            }
+
+            this.base(val);
         },
 
         initControlEvents: function()
@@ -101,7 +156,7 @@
                 callback(model);
             });
         },
-        
+
         afterRenderControl: function(model, callback)
         {
             var self = this;
@@ -254,9 +309,9 @@
         }
 
         /* end_builder_helpers */
-        
+
     });
-    
+
     Alpaca.registerFieldClass("radio", Alpaca.Fields.RadioField);
-    
+
 })(jQuery);

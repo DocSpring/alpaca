@@ -33,9 +33,9 @@
             {
                 for (var countryKey in countriesMap)
                 {
-                    this.schema["enum"].push(countryKey);
-
                     var label = countriesMap[countryKey];
+                    this.schema["enum"].push(label);
+
                     if (this.options.capitalize)
                     {
                         label = label.toUpperCase();
@@ -46,10 +46,22 @@
             }
 
             this.base();
-        }
+        },
+
+        prepareControlModel: function(callback) {
+            var self = this;
+
+            if (typeof(self.options.noneLabel) === "undefined")
+            {
+                self.options.noneLabel = self.getMessage("countryNoneLabel");
+            }
+
+            this.base(function (model) {
+                callback(model);
+            });
+        },
 
         /* builder_helpers */
-        ,
 
         /**
          * @see Alpaca.Fields.TextField#getTitle
@@ -104,5 +116,11 @@
 
     Alpaca.registerFieldClass("country", Alpaca.Fields.CountryField);
     Alpaca.registerDefaultFormatFieldMapping("country", "country");
+
+    // Registers additional messages
+    Alpaca.registerMessages({
+        "countryNoneLabel": "Select a Country"
+    });
+
 
 })(jQuery);

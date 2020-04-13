@@ -108,7 +108,7 @@
     });
 
     Alpaca.registerMessages({
-        "invalidURLFormat": "The URL provided is not a valid web address."
+        "invalidURLFormat": "The URL provided is not a valid web address. e.g. http://example.com"
     });
     Alpaca.registerFieldClass("url", Alpaca.Fields.URLField);
     Alpaca.registerDefaultFormatFieldMapping("url", "url");

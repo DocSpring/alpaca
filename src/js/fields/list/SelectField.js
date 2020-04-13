@@ -59,6 +59,77 @@
             if (self.isDisplayOnly())
             {
                 delete self.options.multiselect;
+                return this.data;
+            }
+
+            return this.base();
+        },
+
+
+        /**
+         * @see Alpaca.Field#setValue
+         */
+        setValue: function(val)
+        {
+            var self = this;
+
+            var newScalarVal = self.convertToScalarValue(val);
+            var currentScalarVal = self.convertToScalarValue(self.getValue());
+
+            if (Alpaca.isArray(val))
+            {
+                // if values are different, then set
+                if (!Alpaca.compareArrayContent(newScalarVal, currentScalarVal))
+                {
+                    if (!Alpaca.isEmpty(newScalarVal) && this.control)
+                    {
+                        this.control.val(newScalarVal);
+                        self.control.trigger('alpaca-change');
+                    }
+
+                    this.base(val);
+                }
+            }
+            else
+            {
+                var apply = false;
+                if (Alpaca.isEmpty(newScalarVal) && Alpaca.isEmpty(currentScalarVal))
+                {
+                    apply = true;
+                }
+                else if (newScalarVal !== currentScalarVal)
+                {
+                    apply = true;
+                }
+
+                if (apply)
+                {
+                    if (self.control && typeof(newScalarVal) !== "undefined" && newScalarVal !== null)
+                    {
+                        self.control.val(newScalarVal);
+                        self.control.trigger('alpaca-change');
+                    }
+
+                    this.base(val);
+                }
+            }
+        },
+
+        /**
+         * @see Alpaca.ListField#getEnum
+         */
+        getEnum: function()
+        {
+            if (this.schema)
+            {
+                if (this.schema["enum"])
+                {
+                    return this.schema["enum"];
+                }
+                else if (this.schema["type"] && this.schema["type"] === "array" && this.schema["items"] && this.schema["items"]["enum"])
+                {
+                    return this.schema["items"]["enum"];
+                }
             }
         },
 
@@ -93,6 +164,18 @@
         prepareControlModel: function(callback) {
             var self = this;
 
+            if (typeof(self.options.hideNone) === "undefined")
+            {
+                if (typeof(self.options.removeDefaultNone) !== "undefined")
+                {
+                    self.options.hideNone = self.options.removeDefaultNone;
+                }
+                else {
+                    // We don't ever need to hide the blank option for a select list.
+                    self.options.hideNone = false;
+                }
+            }
+
             this.base(function (model) {
 
                 if (typeof(self.options.noneLabel) === "undefined")
@@ -121,6 +204,20 @@
             var self = this;
 
             this.base(model, function() {
+
+                // if emptySelectFirst and nothing currently checked, then pick first item in the value list
+                // set data and visually select it
+                if (Alpaca.isUndefined(self.data) && self.options.emptySelectFirst && self.selectOptions && self.selectOptions.length > 0)
+                {
+                    self.data = self.selectOptions[0].value;
+                }
+
+                // do this little trick so that if we have a default value, it gets set during first render
+                // this causes the state of the control
+                if (self.data)
+                {
+                    self.setValue(self.data);
+                }
 
                 // if we are in multiple mode and the bootstrap multiselect plugin is available, bind it in
                 if (self.options.multiple && $.fn.multiselect && !self.isDisplayOnly())
