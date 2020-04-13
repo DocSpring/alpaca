@@ -943,31 +943,36 @@
          */
         guessOptionsType: function(schema)
         {
-            var type = null;
+            // check if it has format defined
+            if (schema.format && Alpaca.defaultFormatFieldMapping[schema.format])
+            {
+                return Alpaca.defaultFormatFieldMapping[schema.format];
+            }
 
             if (schema && typeof(schema["enum"]) !== "undefined")
             {
                 if (schema["enum"].length > 3)
                 {
-                    type = "select";
+                    return "select";
                 }
                 else
                 {
-                    type = "radio";
+                    return "radio";
                 }
             }
-            else
-            {
-                type = Alpaca.defaultSchemaFieldMapping[schema.type];
+
+            // type: ["string", "null"] and type: ["null", "string"] are valid ways 
+            // of defining an optional field. Find the first non-null type.
+            var schemaType = schema.type
+            if (Alpaca.isArray(schemaType)) {
+                for (var i = 0; i < schemaType.length; i++) {
+                    if (schemaType[i] === 'null') continue;
+                    schemaType = schemaType[i];
+                    break;
+                }
             }
 
-            // check if it has format defined
-            if (schema.format && Alpaca.defaultFormatFieldMapping[schema.format])
-            {
-                type = Alpaca.defaultFormatFieldMapping[schema.format];
-            }
-
-            return type;
+            return Alpaca.defaultSchemaFieldMapping[schemaType];
         },
 
         /**
