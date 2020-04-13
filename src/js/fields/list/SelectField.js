@@ -73,8 +73,10 @@
         {
             var self = this;
 
-            var newScalarVal = self.convertToScalarValue(val);
-            var currentScalarVal = self.convertToScalarValue(self.getValue());
+            // var newScalarVal = self.convertToScalarValue(val);
+            // var currentScalarVal = self.convertToScalarValue(self.getValue());
+            var newScalarVal = val;
+            var currentScalarVal = self.getValue();
 
             if (Alpaca.isArray(val))
             {
