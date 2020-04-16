@@ -138,6 +138,14 @@
             }
         },
 
+        // [DocSpring] Use isEmpty from Field.js, otherwise we can't
+        // uncheck a required checkbox.
+        // https://github.com/gitana/alpaca/issues/748
+        isEmpty: function()
+        {
+            return Alpaca.isValEmpty(this.getValue());
+        },
+
         /**
          * @see Alpaca.Field#disable
          */
