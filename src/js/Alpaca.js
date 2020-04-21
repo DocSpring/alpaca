@@ -2019,14 +2019,18 @@
             }
 
             // Check if this is an image upload attribute
+            // UPDATE: Important to remember that image fields
+            // can now be optional, so length can be 3.
+            // (includes: { type: 'null' })
             if (schema.oneOf &&
-                schema.oneOf.length === 2 &&
+                (schema.oneOf.length === 2 || schema.oneOf.length === 3) &&
                 schema.oneOf[0].type === 'object' &&
                 schema.oneOf[0].properties &&
                 schema.oneOf[0].properties.base64 &&
                 schema.oneOf[1].type === 'object' &&
                 schema.oneOf[1].properties &&
-                schema.oneOf[1].properties.url
+                schema.oneOf[1].properties.url &&
+                (schema.oneOf[2] == null || schema.oneOf[2].type == 'null')
                 //schema.properties.oneOf[2].uploaded_image_id
             ) {
                 // Just use a URL field for now. Set up the uploader later.
