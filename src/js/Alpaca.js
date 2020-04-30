@@ -936,6 +936,26 @@
         },
 
         /**
+         * Returns the first non-null type for optional fields where schema.type is an array.
+         * (type: ["string", "null"] is a valid way of defining an optional field type.)
+         * If the array only contains a single value, then returns that value.
+         * Returns schemaType if the value is not an array.
+         * @param schemaType
+         * @returns {string} the field type
+         */
+        schemaTypeFromArray: function(schemaType)
+        {
+            if (!Alpaca.isArray(schemaType)) { return schemaType }
+            if (schemaType.length === 1) { return schemaType[0] }
+            for (var i = 0; i < schemaType.length; i++) {
+                if (schemaType[i] === 'null') continue;
+                return schemaType[i];
+            }
+            return null;
+        },
+
+
+        /**
          * Makes a best guess at the options field type if none provided.
          *
          * @param schema
@@ -961,17 +981,9 @@
                 }
             }
 
-            // type: ["string", "null"] and type: ["null", "string"] are valid ways 
-            // of defining an optional field. Find the first non-null type.
-            var schemaType = schema.type
-            if (Alpaca.isArray(schemaType)) {
-                for (var i = 0; i < schemaType.length; i++) {
-                    if (schemaType[i] === 'null') continue;
-                    schemaType = schemaType[i];
-                    break;
-                }
-            }
-
+            // type: ["string", "null"] is a valid way of defining an optional
+            // field that can be either a string, or null. Use the first non-null type.
+            var schemaType = Alpaca.schemaTypeFromArray(schema.type)
             return Alpaca.defaultSchemaFieldMapping[schemaType];
         },
 
