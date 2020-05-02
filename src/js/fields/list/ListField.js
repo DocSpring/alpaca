@@ -265,6 +265,19 @@
 
             var val = null;
 
+            var nullAllowed = Alpaca.isArray(self.schema.type) &&
+                self.schema.type.indexOf("null") !== -1;
+            if (this.data.length === 0 && nullAllowed)
+            {
+                // If the schema type is: ["string", "null"] and data is an empty array,
+                // then we must also handle this schema:
+                // type: ["string", "null"], enum: ["a", "b", ""]
+                if (Alpaca.isArray(self.schema.enum) && self.schema.enum.indexOf("") !== -1) {
+                    return "";
+                }
+                return null;
+            }
+
             var schemaType = Alpaca.schemaTypeFromArray(self.schema.type);
 
             if (!schemaType || schemaType === "string")
