@@ -1,6 +1,6 @@
 (function($) {
 
-    // NOTE: this requires bootstrap-datetimepicker.js
+    // NOTE: this requires tempusdominus/bootstrap-4
     // NOTE: this requires moment.js
 
     var Alpaca = $.alpaca;
@@ -153,9 +153,9 @@
                 {
                     if ($.fn.datetimepicker)
                     {
-                        self.getControlEl().datetimepicker(self.options.picker);
-
-                        self.picker = self.getControlEl().data("DateTimePicker");
+                        var controlEl = self.getControlEl();
+                        controlEl.datetimepicker(self.options.picker);
+                        self.picker = controlEl.data("datetimepicker");
 
                         // After setting up the datepicker, change control to the input,
                         // so we can get the value.
@@ -440,7 +440,7 @@
                     },
                     "picker": {
                         "title": "DatetimePicker options",
-                        "description": "Options that are supported by the <a href='http://eonasdan.github.io/bootstrap-datetimepicker/'>Bootstrap DateTime Picker</a>.",
+                        "description": "Options that are supported by the <a href='https://github.com/tempusdominus/bootstrap-4'>TempusDominus Bootstrap 4 DateTime Picker</a>.",
                         "type": "any"
                     }
                 }

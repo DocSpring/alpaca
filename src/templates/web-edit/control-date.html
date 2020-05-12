@@ -1,11 +1,10 @@
 <script type="text/x-handlebars-template">
-
-    <div class='input-group date'>
-        <input type="{{inputType}}" id="{{id}}" {{#if options.placeholder}}placeholder="{{options.placeholder}}"{{/if}} {{#if options.size}}size="{{options.size}}"{{/if}} {{#if options.readonly}}readonly="readonly"{{/if}} {{#if name}}name="{{name}}"{{/if}} {{#each options.data}}data-{{@key}}="{{this}}"{{/each}} {{#each options.attributes}}{{@key}}="{{this}}"{{/each}}/>
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar">
+    <div class='input-group date' id="datetimepicker-{{id}}" data-target-input="nearest">
+        <input type="{{inputType}}" class="datetimepicker-input" id="{{id}}" data-target="#datetimepicker-{{id}}" {{#if options.placeholder}}placeholder="{{options.placeholder}}"{{/if}} {{#if options.size}}size="{{options.size}}"{{/if}} {{#if options.readonly}}readonly="readonly"{{/if}} {{#if name}}name="{{name}}"{{/if}} {{#each options.data}}data-{{@key}}="{{this}}"{{/each}} {{#each options.attributes}}{{@key}}="{{this}}"{{/each}}/>
+        <div class="input-group-append" data-target="#datetimepicker-{{id}}" data-toggle="datetimepicker">
+            <div class="input-group-text" style="height: 100%; border-left: none;">
+                <i class="fa fa-calendar"></i>
             </span>
-        </span>
+        </div>
     </div>
-
 </script>
