@@ -166,7 +166,9 @@
             }
         }
 
-        return new Handlebars.SafeString(value);
+        var escapedValue = Handlebars.escapeExpression(value);
+
+        return new Handlebars.SafeString(escapedValue);
     };
     Handlebars.registerHelper("arrayToolbar", helpers["arrayToolbar"]);
     Handlebars.registerHelper("arrayActionbar", helpers["arrayActionbar"]);
@@ -276,6 +278,10 @@
 
     // message
     Handlebars.registerHelper("showMessage", helpers["showMessage"]);
+
+    Handlebars.registerHelper('sanitizeHtml', function(html) {
+        return Handlebars.escapeExpression(html);
+    });
 
     Alpaca.HandlebarsTemplateEngine = Alpaca.AbstractTemplateEngine.extend(
     {
