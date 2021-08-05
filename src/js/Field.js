@@ -128,6 +128,14 @@
                 this.showingDefaultData = true;
             }
 
+            if(!Alpaca.isValEmpty(this.data) &&
+                !Alpaca.isEmpty(this.options["prefix"]) &&
+                !Alpaca.startsWith(this.data, this.options["prefix"])){
+                this.data = `${this.options["prefix"]}${this.data}`
+            }
+
+
+
             // default path
             this.path = "/";
 

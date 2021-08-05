@@ -34,7 +34,6 @@
          */
         constructor: function(container, data, options, schema, view, connector, errorCallback) {
             options = options || {};
-
             var pfOptionsSchema = this.getSchemaOfPriceFormatOptions().properties;
             for (var i in pfOptionsSchema) {
                 var option = pfOptionsSchema[i];
@@ -46,8 +45,7 @@
             // Default should be true.
             options.allowOptionalEmpty = true;
             options.clearOnEmpty = true;
-
-            if (typeof(data) !== "undefined")
+            if (data!=null && typeof(data) !== "undefined")
             {
                 data = "" + parseFloat(data).toFixed(options.centsLimit);
             }
@@ -86,7 +84,6 @@
         getControlValue: function() {
 
             var field = this.getControlEl();
-
             var val = $(field).is('input') ? field.val() : field.html();
             if (this.options.unmask || this.options.round !== "none") {
                 var unmasked = function() {
