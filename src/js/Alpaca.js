@@ -2030,6 +2030,11 @@
                 options.type = schema['x-input-type'];
             }
 
+            // Show placeholder if specify
+            if (schema['x-placeholder']) {
+                options.placeholder = schema['x-placeholder'];
+            }
+
             // Check if this is an image upload attribute
             // UPDATE: Important to remember that image fields
             // can now be optional, so length can be 3.
