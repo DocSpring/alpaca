@@ -1114,8 +1114,9 @@
             var self = this;
 
             // disable select files button
-            $(self.control).find(".btn.fileinput-button").prop("disabled", true);
-            $(self.control).find(".btn.fileinput-button").attr("disabled", "disabled");
+            $(self.control).find(".btn.fileinput-button input[type=file]").prop("disabled", true);
+            $(self.control).find(".btn.fileinput-button input[type=file]").attr("disabled", "disabled");
+
 
             // hide dropzone message
             $(self.control).find(".fileupload-active-zone p.dropzone-message").css("display", "none");
@@ -1123,8 +1124,8 @@
             if (enabled)
             {
                 // enable select files button
-                $(self.control).find(".btn.fileinput-button").prop("disabled", false);
-                $(self.control).find(".btn.fileinput-button").attr("disabled", null);
+                $(self.control).find(".btn.fileinput-button input[type=file]").prop("disabled", false);
+                $(self.control).find(".btn.fileinput-button input[type=file]").attr("disabled", null);
 
                 // show dropzone message
                 $(self.control).find(".fileupload-active-zone p.dropzone-message").css("display", "block");

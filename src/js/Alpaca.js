@@ -2048,6 +2048,7 @@
                 // Just use a URL field for now. Set up the uploader later.
                 schema.properties = schema.oneOf[1].properties;
                 schema.type = 'object';
+                options = schema.properties.url;
                 delete schema.oneOf;
             }
 
