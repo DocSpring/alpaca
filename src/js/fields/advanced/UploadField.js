@@ -982,8 +982,12 @@
             return value;
         },
 
-        setValue: function(value)
+        setValue: function(value, internal)
         {
+            if (typeof internal === 'undefined') {
+              internal = false;
+            }
+
             if (!value)
             {
                 this.data = [];
@@ -1000,6 +1004,10 @@
                 }
             }
 
+            if (internal == false) {
+              this.reload(function() {});
+            }
+            this.refreshUIState();
             this.updateObservable();
 
             this.triggerUpdate();
@@ -1024,7 +1032,7 @@
 
             if (self.isArrayType())
             {
-                self.setValue(array);
+                self.setValue(array, true);
             }
             else if (self.isObjectType())
             {
@@ -1033,7 +1041,7 @@
                     val = array[0];
                 }
 
-                self.setValue(val);
+                self.setValue(val, true);
             }
         },
 
