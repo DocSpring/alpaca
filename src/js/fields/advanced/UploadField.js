@@ -758,7 +758,7 @@
                 "name": file.name,
                 "size": file.size,
                 "url": file.url,
-                "thumbnailUrl": file.thumbnailUrl
+                "thumbnailUrl": file.thumbnailUrl || file.url
             };
 
             // substitute any tokens
@@ -834,7 +834,7 @@
                 "name": file.name,
                 "size": file.size,
                 "url": file.url,
-                "thumbnailUrl":file.thumbnailUrl,
+                "thumbnailUrl":file.thumbnailUrl || file.url,
                 "deleteUrl": file.deleteUrl,
                 "deleteType": file.deleteType
             };
@@ -871,7 +871,7 @@
                 "name": descriptor.name,
                 "size": descriptor.size,
                 "url": descriptor.url,
-                "thumbnailUrl":descriptor.thumbnailUrl,
+                "thumbnailUrl":descriptor.thumbnailUrl || descriptor.url,
                 "deleteUrl": descriptor.deleteUrl,
                 "deleteType": descriptor.deleteType
             };
