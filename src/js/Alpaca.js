@@ -2042,15 +2042,17 @@
                 schema.oneOf[1].type === 'object' &&
                 schema.oneOf[1].properties &&
                 schema.oneOf[1].properties.url &&
+                schema.oneOf[1]['x-uploader'] &&
                 (schema.oneOf[2] == null || schema.oneOf[2].type == 'null')
                 //schema.properties.oneOf[2].uploaded_image_id
             ) {
-                // Just use a URL field for now. Set up the uploader later.
-                schema.properties = schema.oneOf[1].properties;
+                // Uploader attributes
+                schema.properties = schema.oneOf[1]['x-uploader'];
                 schema.type = 'object';
                 options = schema.properties.url;
                 delete schema.oneOf;
             }
+
 
             if (!options.type)
             {
