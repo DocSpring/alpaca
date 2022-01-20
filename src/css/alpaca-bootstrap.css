@@ -225,8 +225,10 @@ legend.alpaca-container-label
 /** FIElDS **/
 .alpaca-field.alpaca-field-upload .fileupload-active-zone
 {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 .alpaca-field.alpaca-field-upload .template-download TD.error
 {
@@ -250,6 +252,10 @@ legend.alpaca-container-label
     color: red;
     font-size: 16px;
     text-align: left;
+}
+.alpaca-field.alpaca-field-upload .alpaca-fileupload-chooserow
+{
+  margin-bottom: 0;
 }
 
 .alpaca-field.alpaca-field-address .alpaca-field-address-mapcanvas
