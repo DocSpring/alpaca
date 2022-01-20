@@ -871,7 +871,7 @@
                 "name": descriptor.name,
                 "size": descriptor.size,
                 "url": descriptor.url,
-                "thumbnailUrl":descriptor.thumbnailUrl || descriptor.url,
+                "thumbnailUrl":descriptor.thumbnailUrl,
                 "deleteUrl": descriptor.deleteUrl,
                 "deleteType": descriptor.deleteType
             };
