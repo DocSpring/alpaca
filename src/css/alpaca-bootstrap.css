@@ -255,7 +255,7 @@ legend.alpaca-container-label
 }
 .alpaca-field.alpaca-field-upload .alpaca-fileupload-chooserow
 {
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 .alpaca-field.alpaca-field-address .alpaca-field-address-mapcanvas
