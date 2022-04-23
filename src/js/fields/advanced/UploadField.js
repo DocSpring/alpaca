@@ -758,7 +758,7 @@
                 "name": file.name,
                 "size": file.size,
                 "url": file.url,
-                "thumbnailUrl": file.thumbnailUrl
+                "thumbnailUrl": file.thumbnailUrl || file.url
             };
 
             // substitute any tokens
@@ -834,7 +834,7 @@
                 "name": file.name,
                 "size": file.size,
                 "url": file.url,
-                "thumbnailUrl":file.thumbnailUrl,
+                "thumbnailUrl":file.thumbnailUrl || file.url,
                 "deleteUrl": file.deleteUrl,
                 "deleteType": file.deleteType
             };
@@ -871,7 +871,7 @@
                 "name": descriptor.name,
                 "size": descriptor.size,
                 "url": descriptor.url,
-                "thumbnailUrl":descriptor.thumbnailUrl,
+                "thumbnailUrl":descriptor.thumbnailUrl || descriptor.url,
                 "deleteUrl": descriptor.deleteUrl,
                 "deleteType": descriptor.deleteType
             };
@@ -982,8 +982,12 @@
             return value;
         },
 
-        setValue: function(value)
+        setValue: function(value, internal)
         {
+            if (typeof internal === 'undefined') {
+              internal = false;
+            }
+
             if (!value)
             {
                 this.data = [];
@@ -1000,6 +1004,10 @@
                 }
             }
 
+            if (internal == false) {
+              this.reload(function() {});
+            }
+            this.refreshUIState();
             this.updateObservable();
 
             this.triggerUpdate();
@@ -1024,7 +1032,7 @@
 
             if (self.isArrayType())
             {
-                self.setValue(array);
+                self.setValue(array, true);
             }
             else if (self.isObjectType())
             {
@@ -1033,7 +1041,7 @@
                     val = array[0];
                 }
 
-                self.setValue(val);
+                self.setValue(val, true);
             }
         },
 
@@ -1114,8 +1122,9 @@
             var self = this;
 
             // disable select files button
-            $(self.control).find(".btn.fileinput-button").prop("disabled", true);
-            $(self.control).find(".btn.fileinput-button").attr("disabled", "disabled");
+            $(self.control).find(".btn.fileinput-button input[type=file]").prop("disabled", true);
+            $(self.control).find(".btn.fileinput-button input[type=file]").attr("disabled", "disabled");
+
 
             // hide dropzone message
             $(self.control).find(".fileupload-active-zone p.dropzone-message").css("display", "none");
@@ -1123,8 +1132,8 @@
             if (enabled)
             {
                 // enable select files button
-                $(self.control).find(".btn.fileinput-button").prop("disabled", false);
-                $(self.control).find(".btn.fileinput-button").attr("disabled", null);
+                $(self.control).find(".btn.fileinput-button input[type=file]").prop("disabled", false);
+                $(self.control).find(".btn.fileinput-button input[type=file]").attr("disabled", null);
 
                 // show dropzone message
                 $(self.control).find(".fileupload-active-zone p.dropzone-message").css("display", "block");
