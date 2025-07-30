@@ -121,6 +121,57 @@ This document tracks all custom modifications made by DocSpring to the alpaca.js
 - Automatically sets placeholder option from schema definition
 - Improves form UX with placeholder text hints
 
+## Excluded Commits
+
+The following commits by Ragnar Stølsmark are NOT DocSpring modifications and should not be included:
+- ff46f086: Added babel transpiler for IE11 support
+- ab65aa1c: Changed from babel/preset-es2015 to preset-env
+- e9f18134: Only transpile Alpaca-async.js, add Array.from polyfill
+
+These appear to be general improvements that may already be in upstream.
+
+## Open Pull Requests from DocSpring (2020)
+
+### PR #746: Fix issue where two required stars are added for nested required field
+**Status**: Open since 2020  
+**URL**: https://github.com/gitana/alpaca/pull/746  
+**Description**: Fixes a bug where multiple required field indicators (*) were shown for nested object fields
+- Changed jQuery selector from `find()` to `children()` to prevent recursive searching
+- Ensures only one required star is displayed per field
+
+### PR #747: Add support for schemas with type: ['string', 'null']
+**Status**: Open since 2020  
+**URL**: https://github.com/gitana/alpaca/pull/747  
+**Description**: Adds support for JSON schemas with array types containing null
+- Uses the first non-null type from the type array
+- Fixes issue #292 with optional drop-down select lists
+- Note: This functionality is part of commits 2, 6, and 8 listed above
+
+## Related Issues
+
+### Issue #570: Infinite loop when clearing a form with an array that has minItems > 0
+**URL**: https://github.com/gitana/alpaca/issues/570  
+**Description**: ArrayField.js gets stuck in infinite loop when removing items below minItems threshold
+- Located in ArrayField.js lines 311-328
+- Occurs when trying to clear forms with array constraints
+
+### Issue #745: Upgrade to gulp 4
+**URL**: https://github.com/gitana/alpaca/issues/745  
+**Description**: Build fails with Node 12+ due to Gulp 3 incompatibility ("ReferenceError: primordials is not defined")
+- This is why DocSpring's build script requires Node v10
+- Upstream has not yet upgraded to Gulp 4
+
+### Issue #748: "false" should be a valid value for a "required" boolean checkbox
+**URL**: https://github.com/gitana/alpaca/issues/748  
+**Description**: Required checkbox fields prevent form submission when unchecked
+- Current implementation doesn't accept "false" as a valid value for required checkboxes
+- DocSpring's commit 255e4b6e addresses this issue
+
+### Issue #749: Google Maps/Places Demo Failing in Address Field Documentation
+**URL**: https://github.com/gitana/alpaca/issues/749  
+**Description**: Address field documentation demo requires Google Maps API key
+- Not directly related to DocSpring modifications but affects address field functionality
+
 ## Summary of Key Changes
 
 1. **Security**: XSS protection through HTML sanitization
@@ -128,11 +179,12 @@ This document tracks all custom modifications made by DocSpring to the alpaca.js
 3. **Schema Enhancements**: Support for nullable types and array type definitions
 4. **New Fields**: AddressAutocompleteField, SignatureField
 5. **UI/UX**: Placeholder support, checkbox positioning, improved validation
-6. **Bug Fixes**: Form submission with unchecked required checkboxes, radio/select field improvements
+6. **Bug Fixes**: Form submission with unchecked required checkboxes, radio/select field improvements, nested required field indicators
 
 ## Integration Notes
 
 - DocSpring uses the Bootstrap build of alpaca.js
-- Build process requires Node v10 due to Gulp 3 dependency
+- Build process requires Node v10 due to Gulp 3 dependency (see issue #745)
 - Built files are copied to DocSpring's vendor/assets directory
 - Handlebars.js is also copied as a dependency
+- Two PRs (#746, #747) have been open since 2020 and contain fixes that are included in DocSpring's fork
