@@ -62,6 +62,12 @@
                   window.addEventListener("resize", self.resizeCanvas.bind(self));
                   self.resizeCanvas();
 
+                  // Update labels for initials fields
+                  if (self.schema['x-docspring-field-type'] === 'initials') {
+                    $(el).find('.alpaca-signature-label').text('Initial above');
+                    $(el).find('.alpaca-signature-clear').text('Clear Initials');
+                  }
+
                   $(el).on('click', 'a.alpaca-signature-clear', function(e) {
                       if (self.signaturePad) {
                           e.preventDefault();
