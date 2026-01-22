@@ -63,7 +63,7 @@
                   self.resizeCanvas();
 
                   // Update labels for initials fields
-                  if (self.schema['x-docspring-field-type'] === 'initials') {
+                  if (self.schema['x-input-type'] === 'initials') {
                     $(el).find('.alpaca-signature-label').text('Initial above');
                     $(el).find('.alpaca-signature-clear').text('Clear Initials');
                   }
@@ -143,5 +143,6 @@
     });
 
     Alpaca.registerFieldClass("signature", Alpaca.Fields.SignatureField);
+    Alpaca.registerFieldClass("initials", Alpaca.Fields.SignatureField);
 
 })(jQuery);
