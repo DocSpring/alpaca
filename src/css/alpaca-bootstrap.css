@@ -79,7 +79,7 @@ legend.alpaca-container-label
 
 .alpaca-field-object
 {
-    border: 1px #eee solid;
+    border: 1px var(--ds-border) solid;
     border-radius: 4px;
     padding: 10px;
 }
@@ -92,7 +92,7 @@ legend.alpaca-container-label
 /*
 .alpaca-field-object > .alpaca-container.alpaca-container-has-items
 {
-    border: 1px #eee solid;
+    border: 1px var(--ds-border) solid;
     border-radius: 4px;
     padding: 10px;
 }
@@ -100,7 +100,7 @@ legend.alpaca-container-label
 
 .alpaca-field-array
 {
-    border: 1px #eee solid;
+    border: 1px var(--ds-border) solid;
     border-radius: 4px;
     padding: 10px;
 }
@@ -108,7 +108,7 @@ legend.alpaca-container-label
 /*
 .alpaca-field-array > .alpaca-container.alpaca-container-has-items
 {
-    border: 1px #eee solid;
+    border: 1px var(--ds-border) solid;
     border-radius: 4px;
     padding: 10px;
 }
@@ -177,7 +177,8 @@ legend.alpaca-container-label
 }
 
 
-.alpaca-field-signature .alpaca-signature-body {
+.alpaca-field-signature .alpaca-signature-body,
+.alpaca-field-initials .alpaca-signature-body {
     border: 1px solid #ddd;
     position: relative;
     flex: 1;
@@ -185,7 +186,8 @@ legend.alpaca-container-label
     height: 80px;
 }
 
-.alpaca-field-signature .alpaca-signature-body canvas {
+.alpaca-field-signature .alpaca-signature-body canvas,
+.alpaca-field-initials .alpaca-signature-body canvas {
     position: absolute;
     left: 0;
     top: 0;
@@ -195,17 +197,20 @@ legend.alpaca-container-label
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.03) inset;
 }
 
-.alpaca-field-signature .alpaca-signature-footer {
+.alpaca-field-signature .alpaca-signature-footer,
+.alpaca-field-initials .alpaca-signature-footer {
     margin-top: 7px;
     text-align: center;
     position: relative;
 }
-.alpaca-field-signature .alpaca-signature-footer .alpaca-signature-label {
+.alpaca-field-signature .alpaca-signature-footer .alpaca-signature-label,
+.alpaca-field-initials .alpaca-signature-footer .alpaca-signature-label {
     color: #C3C3C3;
     font-size: 12px;
 }
 
-.alpaca-field-signature .alpaca-signature-footer a.alpaca-signature-clear {
+.alpaca-field-signature .alpaca-signature-footer a.alpaca-signature-clear,
+.alpaca-field-initials .alpaca-signature-footer a.alpaca-signature-clear {
     position: absolute;
     right: 0;
     font-size: 12px;
