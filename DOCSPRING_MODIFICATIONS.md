@@ -172,6 +172,17 @@ These appear to be general improvements that may already be in upstream.
 **Description**: Address field documentation demo requires Google Maps API key
 - Not directly related to DocSpring modifications but affects address field functionality
 
+## ObjectField: conditional dependency functions bypass the hidden-source override (SC-319)
+
+**File**: `src/js/fields/basic/ObjectField.js` (`determineSingleDependencyValid`)
+**Description**: When a conditional dependency is defined as a FUNCTION (used by
+DocSpring's field dependency transform for conditional logic), its return value is
+now authoritative: the "only valid if the dependent-on field is showing" override
+no longer forces `valid = false` for hidden source fields. The DocSpring dependency
+functions treat hidden sources as blank themselves, and negated conditions (e.g.
+"show target when source is blank") must be able to show a target while its source
+is hidden. Array/value-form dependencies keep the original behavior.
+
 ## Summary of Key Changes
 
 1. **Security**: XSS protection through HTML sanitization

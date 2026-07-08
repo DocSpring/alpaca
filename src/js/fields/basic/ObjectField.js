@@ -947,6 +947,10 @@
             // assume it isn't valid
             var valid = false;
 
+            // DOCSPRING MODIFICATION: set when a conditional dependency function
+            // decides validity (its result then bypasses the hidden-source override)
+            var evaluatedConditionalFunction = false;
+
             // go one of two directions depending on whether we have conditional dependencies or not
             var conditionalDependencies = this.getChildConditionalDependencies(propertyId);
             if (!conditionalDependencies || conditionalDependencies.length === 0)
@@ -988,6 +992,13 @@
                 if (!Alpaca.isEmpty(conditionalData) && Alpaca.isFunction(conditionalData))
                 {
                     valid = conditionalData.call(this, dependentOnData);
+
+                    // DOCSPRING MODIFICATION: a conditional dependency function is
+                    // authoritative - skip the hidden-source override below. Our field
+                    // dependency functions treat hidden source fields as blank, and a
+                    // negated condition (e.g. "show when X is blank") must be able to
+                    // SHOW a target while its source is hidden.
+                    evaluatedConditionalFunction = true;
                 }
                 else
                 {
@@ -1019,7 +1030,9 @@
             //
 
             // final check: only set valid if the dependentOnPropertyId is showing
-            if (dependentOnField && dependentOnField.isHidden())
+            // (DOCSPRING MODIFICATION: unless a conditional dependency function
+            // already decided - see above)
+            if (dependentOnField && dependentOnField.isHidden() && !evaluatedConditionalFunction)
             {
                 valid = false;
             }
