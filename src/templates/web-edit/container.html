@@ -3,7 +3,7 @@
     <div>
 
         {{#if options.label}}
-        <legend class="{{#if options.labelClass}}{{options.labelClass}}{{/if}} alpaca-container-label">{{{options.label}}}</legend>
+        <legend class="{{#if options.labelClass}}{{options.labelClass}}{{/if}} alpaca-container-label">{{escapeHtmlText options.label}}</legend>
         {{/if}}
 
         {{#if options.helpers}}

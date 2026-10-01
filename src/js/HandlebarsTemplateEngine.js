@@ -283,6 +283,16 @@
         return Handlebars.escapeExpression(html);
     });
 
+    // Text nodes only: preserve entities from legacy schemas/messages while
+    // escaping markup. Browsers decode entities as text, not as HTML tokens.
+    // Attribute values must use normal Handlebars escaping instead.
+    Handlebars.registerHelper('escapeHtmlText', function(value) {
+        var escaped = Handlebars.escapeExpression(value);
+        return new Handlebars.SafeString(escaped.replace(
+            /&amp;((?:#\d+|#[xX][\da-fA-F]+|[a-zA-Z][a-zA-Z0-9]+);)/g, '&$1'
+        ));
+    });
+
     Alpaca.HandlebarsTemplateEngine = Alpaca.AbstractTemplateEngine.extend(
     {
         fileExtension: function() {

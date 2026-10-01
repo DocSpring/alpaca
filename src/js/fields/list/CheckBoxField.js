@@ -127,7 +127,10 @@
             {
                 for (var i = 0; i < self.data.length; i++)
                 {
-                    var checkbox = $(self.getFieldEl()).find("input:checkbox[data-checkbox-value='" + self.data[i].value + "']");
+                    var value = String(self.data[i].value);
+                    var checkbox = $(self.getFieldEl()).find("input:checkbox").filter(function() {
+                        return this.getAttribute("data-checkbox-value") === value;
+                    });
                     Alpaca.checked(checkbox, true);
                 }
             }

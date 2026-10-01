@@ -6,22 +6,22 @@
 
         {{#if options.hideNone}}
         {{else}}
-        <option value="" disabled selected hidden>{{{options.noneLabel}}}</option>
+        <option value="" disabled selected hidden>{{escapeHtmlText options.noneLabel}}</option>
         {{/if}}
 
         {{#each selectOptions}}
-        <option value="{{{value}}}" {{#if selected}}selected="selected"{{/if}}>{{text}}</option>
+        <option value="{{value}}" {{#if selected}}selected="selected"{{/if}}>{{escapeHtmlText text}}</option>
         {{/each}}
 
     {{else}}
 
         {{#if options.hideNone}}
         {{else}}
-        <option value="" disabled selected hidden>{{{options.noneLabel}}}</option>
+        <option value="" disabled selected hidden>{{escapeHtmlText options.noneLabel}}</option>
         {{/if}}
 
         {{#each selectOptions}}
-        <option value="{{{value}}}" {{#if selected}}selected="selected"{{/if}}>{{text}}</option>
+        <option value="{{value}}" {{#if selected}}selected="selected"{{/if}}>{{escapeHtmlText text}}</option>
         {{/each}}
 
     {{/if}}

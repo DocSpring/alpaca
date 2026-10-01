@@ -88,7 +88,10 @@
             // mark selected value
             if (typeof(val) != "undefined")
             {
-                Alpaca.checked($(self.control).find("input[value=\"" + val + "\"]"), "checked");
+                // Values may contain quotes or CSS syntax; compare DOM values directly.
+                Alpaca.checked($(self.control).find("input").filter(function() {
+                    return this.value === String(val);
+                }), "checked");
             }
 
             // if none selected and "emptySelectFirst", then select
@@ -231,7 +234,10 @@
             {
                 for (var i = 0; i < self.data.length; i++)
                 {
-                    var radio = $(self.control).find("input:radio[value='" + self.data[i].value + "']");
+                    var value = String(self.data[i].value);
+                    var radio = $(self.control).find("input:radio").filter(function() {
+                        return this.value === value;
+                    });
                     if (radio.length > 0)
                     {
                         Alpaca.checked(radio, true);
