@@ -1227,7 +1227,9 @@
 
             var removeItemContainer = self.doResolveItemContainer();
 
-            removeItemContainer.children(".alpaca-container-item[data-alpaca-container-item-name='" + item.name + "']").remove();
+            removeItemContainer.children(".alpaca-container-item").filter(function() {
+                return this.getAttribute("data-alpaca-container-item-name") === item.name;
+            }).remove();
 
             // destroy child field itself
             item.destroy();

@@ -139,11 +139,13 @@
     };
     helpers["arrayActionbar"] = function(options)
     {
-        var html = "<div class='" + Alpaca.MARKER_CLASS_ARRAY_ITEM_ACTIONBAR + "' " + Alpaca.MARKER_DATA_ARRAY_ITEM_KEY + "='" + this.name + "'";
-        html += " " + Alpaca.MARKER_DATA_ARRAY_ITEM_FIELD_ID + "='" + this.id + "'";
+        // Names come from template field names, so escape them for the attribute.
+        var escape = Handlebars.escapeExpression;
+        var html = "<div class='" + Alpaca.MARKER_CLASS_ARRAY_ITEM_ACTIONBAR + "' " + Alpaca.MARKER_DATA_ARRAY_ITEM_KEY + "='" + escape(this.name) + "'";
+        html += " " + Alpaca.MARKER_DATA_ARRAY_ITEM_FIELD_ID + "='" + escape(this.id) + "'";
         if (this.parentFieldId)
         {
-            html += " " + Alpaca.MARKER_DATA_ARRAY_ITEM_PARENT_FIELD_ID + "='" + this.parentFieldId + "'"
+            html += " " + Alpaca.MARKER_DATA_ARRAY_ITEM_PARENT_FIELD_ID + "='" + escape(this.parentFieldId) + "'"
         }
         html += "></div>";
 

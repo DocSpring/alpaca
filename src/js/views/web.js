@@ -166,7 +166,7 @@
                 var existingActionbar = $(self.getFieldEl()).find(".alpaca-array-actionbar[data-alpaca-array-actionbar-field-id='" + childFieldId + "']");
                 if (existingActionbar.length > 0)
                 {
-                    var insertionPointEl = $("<div class='" + Alpaca.MARKER_CLASS_ARRAY_ITEM_ACTIONBAR + "' " + Alpaca.MARKER_DATA_ARRAY_ITEM_KEY + "='" + childField.name + "'></div>");
+                    var insertionPointEl = $("<div></div>").addClass(Alpaca.MARKER_CLASS_ARRAY_ITEM_ACTIONBAR).attr(Alpaca.MARKER_DATA_ARRAY_ITEM_KEY, childField.name);
 
                     existingActionbar.before(insertionPointEl);
                     existingActionbar.remove();
@@ -176,7 +176,10 @@
             {
                 // find the insertion point marker
                 // if we find one, bind in the action toolbar
-                var insertionPointEl = $(self.getFieldEl()).find("." + Alpaca.MARKER_CLASS_ARRAY_ITEM_ACTIONBAR + "[" + Alpaca.MARKER_DATA_ARRAY_ITEM_KEY + "='" + childField.name + "']");
+                // Field names may contain quotes or CSS syntax; compare attribute values directly.
+                var insertionPointEl = $(self.getFieldEl()).find("." + Alpaca.MARKER_CLASS_ARRAY_ITEM_ACTIONBAR).filter(function() {
+                    return this.getAttribute(Alpaca.MARKER_DATA_ARRAY_ITEM_KEY) === childField.name;
+                });
                 if (insertionPointEl.length > 0)
                 {
                     var templateDescriptor = self.view.getTemplateDescriptor("container-array-actionbar", self);
