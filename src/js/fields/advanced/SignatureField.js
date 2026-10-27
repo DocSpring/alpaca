@@ -143,5 +143,7 @@
     });
 
     Alpaca.registerFieldClass("signature", Alpaca.Fields.SignatureField);
+    // DocSpring's initials fields have x-input-type "initials": the same pad, with its own labels (above)
+    Alpaca.registerFieldClass("initials", Alpaca.Fields.SignatureField);
 
 })(jQuery);
